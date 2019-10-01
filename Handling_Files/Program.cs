@@ -18,36 +18,36 @@ namespace Handling_Files
             Console.Write("Number of records: ");
             int qtdReg = int.Parse(Console.ReadLine());
             List<Product> list = new List<Product>();
-
-            for (int i = 1; i <= qtdReg; i++)
-            {
-                Console.Write($"Registro #{i}: ");
-                string reg = Console.ReadLine();
-                string[] fields = reg.Split(',');
-                string name = fields[0];
-                double price = double.Parse(fields[1], CultureInfo.InvariantCulture);
-                int quantity = int.Parse(fields[2]);
-
-                list.Add(new Product(name, price, quantity));
-
-            }
-
-
-            Console.Write("Where do you want to save this file? ");
-            string sourceFilePath = Console.ReadLine() + @"\source.csv";
-
-            using (StreamWriter sw1 = File.AppendText(sourceFilePath))
-            {
-                foreach (Product p in list)
-                {
-                    sw1.WriteLine(p.Name + "," + p.Price + "," + p.Quantity);
-                }
-            }
-
-            
-
             try
             {
+                for (int i = 1; i <= qtdReg; i++)
+                {
+                    Console.Write($"Registro #{i}: ");
+                    string reg = Console.ReadLine();
+                    string[] fields = reg.Split(',');
+                    string name = fields[0];
+                    double price = double.Parse(fields[1], CultureInfo.InvariantCulture);
+                    int quantity = int.Parse(fields[2]);
+
+                    list.Add(new Product(name, price, quantity));
+
+                }
+
+
+                Console.Write("Where do you want to save this file? ");
+                string sourceFilePath = Console.ReadLine() + @"\source.csv";
+
+                using (StreamWriter sw1 = File.AppendText(sourceFilePath))
+                {
+                    foreach (Product p in list)
+                    {
+                        sw1.WriteLine(p.Name + "," + p.Price + "," + p.Quantity);
+                    }
+                }
+
+
+
+
                 string[] lines = File.ReadAllLines(sourceFilePath);
 
                 string sourceFolderPath = Path.GetDirectoryName(sourceFilePath);
@@ -77,7 +77,7 @@ namespace Handling_Files
                 Console.WriteLine("An error occurred");
                 Console.WriteLine(e.Message);
             }
-            
+
         }
     }
 }
